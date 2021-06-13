@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace きどく
+namespace みどく
 {
 	class Program
 	{

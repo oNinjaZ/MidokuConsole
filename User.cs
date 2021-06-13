@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using きどく.Data;
+using みどく.Data;
 
-namespace きどく
+namespace みどく
 {
 	public class User
 	{

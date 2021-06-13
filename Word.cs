@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using きどく.Statistics.Word;
+using みどく.Statistics.Word;
 
-namespace きどく
+namespace みどく
 {
 	public class Word
 	{

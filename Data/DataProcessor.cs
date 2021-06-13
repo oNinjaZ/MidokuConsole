@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace きどく.Data
+namespace みどく.Data
 {
 	public class DataProcessor
 	{

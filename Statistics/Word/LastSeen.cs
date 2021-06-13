@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace きどく.Statistics.Word
+namespace みどく.Statistics.Word
 {
 	public static class Seen
 	{
