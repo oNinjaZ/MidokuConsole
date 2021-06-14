@@ -37,8 +37,8 @@ namespace みどく
 
 		public void PrintCards()
 		{
-			List.Sort.SortBy.Frequency(Words);
-			//List.Sort.SortBy.Recent(Words.Words);
+			List.Sort.SortBy.SortList(Words);
+
 		}
 
 

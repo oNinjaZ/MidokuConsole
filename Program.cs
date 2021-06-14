@@ -28,6 +28,10 @@ namespace みどく
 					{
 						ninjaz.PrintCards();
 					}
+					else if (input == "listmode")
+					{
+						みどく.Settings.ListView.SetViewMode();
+					}
 					else if (input == "exit")
 					{
 						searchMode = false;
