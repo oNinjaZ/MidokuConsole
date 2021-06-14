@@ -8,7 +8,7 @@ namespace みどく.List.Display
 	{
 		public static void ListItems(List<Word> words)
 		{
-			Console.WriteLine("\n");
+			Console.WriteLine("\n======================================================\n");
 			foreach (var item in words)
 			{
 				Console.WriteLine($"{item.WordEntry} (Seen {item.LastSeen}) {item.TimesSeen}x");

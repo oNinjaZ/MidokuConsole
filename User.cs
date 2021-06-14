@@ -69,7 +69,7 @@ namespace みどく
 		{
 			Words.Clear();
 			SavedFilePaths.Clear();
-			Data.Processor.Read.ReadPaths(SavedFilePaths);
+			Read.ReadPaths(SavedFilePaths);
 
 			if (SavedFilePaths.Count == 0)
 			{
@@ -94,7 +94,7 @@ namespace みどく
 			{
 				this.CurrentPath = book;
 				Read.LoadWords(Words, $"{book}data.txt");
-				Console.WriteLine($"\nきどく - {book}");
+				Console.WriteLine($"\nきどく - {book} ({Words.Count} {(Words.Count > 1 ? "words" : "word")})");
 			}
 			else
 			{

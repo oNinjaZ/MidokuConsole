@@ -47,7 +47,7 @@ namespace みどく.Editor
 			Console.Write($"{deleted.Count} deleted: [");
 			foreach (var word in deleted)
 			{
-				Console.Write($"({deleted})");
+				Console.Write($"({word})");
 			}
 			Console.WriteLine("]");
 		}
