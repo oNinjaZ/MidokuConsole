@@ -9,6 +9,21 @@ namespace みどく.Settings
 {
 	public class ListView
 	{
+		public static string currentSetting
+		{
+			get
+			{
+				if (LoadViewMode() == "1")
+				{
+					return "Frequency";
+				}
+				else
+				{
+					return "Recent";
+				}
+			}
+		}
+
 		public static string LoadViewMode()
 		{
 			if (File.Exists("settings.txt"))
@@ -46,6 +61,15 @@ namespace みどく.Settings
 
 		private static void SetMessage(string newSetting)
 		{
+			switch (newSetting)
+			{
+				case "1":
+					newSetting = "Frequency";
+					break;
+				default:
+					newSetting = "Recent";
+					break;
+			}
 			Console.WriteLine($"Now displaying lists by {newSetting}");
 		}
 

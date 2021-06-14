@@ -26,7 +26,7 @@ namespace みどく.Data.Processor
 			sw.Close();
 		}
 
-		public static void WriteWords(List<Word> words, string fileName)
+		public static void SaveWords(List<Word> words, string fileName)
 		{
 			StreamWriter sw = new(fileName);
 			foreach (var item in words)

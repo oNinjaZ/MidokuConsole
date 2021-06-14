@@ -60,7 +60,7 @@ namespace みどく
 
 		public void ExportData()
 		{
-			Write.WriteWords(Words, $"{CurrentPath}data.txt");
+			Write.SaveWords(Words, $"{CurrentPath}data.txt");
 
 			LoadMenu();
 		}
