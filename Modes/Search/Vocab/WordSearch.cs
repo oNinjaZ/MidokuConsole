@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace みどく.Modes.Search.Vocab
 {
-	public class SearchWord
+	public class WordSearch
 	{
 
 		public static void Find(List<Word> words, string searchedWord)

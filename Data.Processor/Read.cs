@@ -28,7 +28,7 @@ namespace みどく.Data.Processor
 			}
 		}
 
-		public static void ReadWords(Collection list, string fileName)
+		public static void LoadWords(List<Word> words, string fileName)
 		{
 			string[] data;
 			StreamReader sr = new(fileName);
@@ -37,7 +37,7 @@ namespace みどく.Data.Processor
 				data = s.Split(",").ToArray();
 				DateTime date = DateTime.FromBinary(long.Parse(data[2]));
 				DateTime FirstSeenDate = DateTime.FromBinary(long.Parse(data[3]));
-				list.Words.Add(new Word { WordEntry = data[0], TimesSeen = int.Parse(data[1]), LastSeenDate = date, FirstSeenDate = FirstSeenDate });
+				words.Add(new Word { WordEntry = data[0], TimesSeen = int.Parse(data[1]), LastSeenDate = date, FirstSeenDate = FirstSeenDate });
 			}
 			sr.Close();
 		}

@@ -7,7 +7,7 @@ namespace みどく
 		static void Main(string[] args)
 		{
 			User ninjaz = new();
-			ninjaz.LoadData();
+			ninjaz.LoadMenu();
 			Console.WriteLine();
 			string input = string.Empty;
 			bool searchMode = true;
@@ -35,7 +35,7 @@ namespace みどく
 					}
 					else if (input == "del")
 					{
-						ninjaz.delWord();
+						ninjaz.Del();
 					}
 					else if (input == "menu")
 					{

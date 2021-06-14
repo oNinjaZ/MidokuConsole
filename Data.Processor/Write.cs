@@ -20,18 +20,16 @@ namespace みどく.Data.Processor
 			sw.Close();
 		}
 
-		public static void WriteNewPath(string fileName)
+		public static void WriteNewDataPath(string fileName)
 		{
-			fileName += "data.txt";
 			StreamWriter sw = new(fileName);
 			sw.Close();
 		}
 
-		public static void WriteWords(Collection list, string fileName)
+		public static void WriteWords(List<Word> words, string fileName)
 		{
-			fileName += "data.txt";
 			StreamWriter sw = new(fileName);
-			foreach (var item in list.Words)
+			foreach (var item in words)
 			{
 				var dateToStr = item.LastSeenDate.ToBinary().ToString();
 				var firstSeenDate = item.FirstSeenDate.ToBinary().ToString();

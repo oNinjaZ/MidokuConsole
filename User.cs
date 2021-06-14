@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using みどく.Data;
 using みどく.Modes.Search.Vocab;
 using みどく.Modes.Search.Kanji;
+using みどく.Editor;
+using みどく.Data.Processor;
 
 namespace みどく
 {
 	public class User
 	{
-		public Collection Words { get; set; }
+		List<Word> Words { get; set; }
 		public List<string> SavedFilePaths { get; set; }
-		public string FilePath { get; set; }
+		public string CurrentPath { get; set; }
 
 		public User()
 		{
@@ -21,91 +22,35 @@ namespace みどく
 
 		public void Search(string searchedWord)
 		{
-			SearchWord.Find(Words.Words, searchedWord);
-		}
-
-		public void delWord()
-		{
-			Console.WriteLine("Enter words to delete (separated by spaces)...");
-			List<string> input = GetWordsToDelete();
-			List<string> sucessfullyDeleted = new();
-			List<string> notFound = new();
-			foreach (var item in input)
-			{
-				if (Words.Words.Any(word => word.WordEntry == item))
-				{
-					sucessfullyDeleted.Add(item);
-					Words.Words.Remove(Words.Words.Find(w => w.WordEntry == item));
-				}
-				else
-				{
-					notFound.Add(item);
-				}
-			}
-			Console.WriteLine();
-			if(sucessfullyDeleted.Any())
-			{
-				Console.Write($"{sucessfullyDeleted.Count} deleted: [");
-				foreach (var deleted in sucessfullyDeleted)
-				{
-					Console.Write($"({deleted})");
-				}
-				Console.WriteLine("]");
-			}
-			if (notFound.Any())
-			{
-				Console.Write($"{notFound.Count} not found: [");
-				foreach (var missing in notFound)
-				{
-					Console.Write($"({missing})");
-				}
-				Console.WriteLine("]");
-			}
-		}
-
-		private List<string> GetWordsToDelete()
-		{
-			return Console.ReadLine().Split(" ").ToList();
-		}
-
-
-
-		public void PrintCards()
-		{
-			Console.WriteLine($"\n=======  Count: {Words.WordCount}  ========");
-			foreach (var item in Words.Words)
-			{
-				Console.WriteLine($"{item.WordEntry} (Seen {item.LastSeen}) {item.TimesSeen}x");
-			}
+			WordSearch.Find(Words, searchedWord);
 		}
 
 		public void SearchKanji(string kanji)
 		{
-			KanjiSearch.SearchList(Words.Words, kanji);
+			KanjiSearch.SearchList(Words, kanji);
 		}
 
-
-
-		public void ExportData()
+		public void Del()
 		{
-			Data.Processor.Write.WritePaths(SavedFilePaths);
-			Data.Processor.Write.WriteWords(Words, FilePath);
-			Words = new();
-			SavedFilePaths.Clear();
-			LoadData();
+			Delete.DelWord(Words);
 		}
+
+		public void PrintCards()
+		{
+			List.Sort.SortBy.Frequency(Words);
+			//List.Sort.SortBy.Recent(Words.Words);
+		}
+
 
 		public void delBookLog()
 		{
 			Console.WriteLine("enter book log to delete");
 			string input = Console.ReadLine();
-			if (SavedFilePaths.Any(name => name == input))
-			{
-				SavedFilePaths.Remove(input);
-				Data.Processor.Write.WritePaths(SavedFilePaths);
-				Words = new();
-				SavedFilePaths.Clear();
-				LoadData();
+			if (SavedFilePaths.Remove(input))
+			{	
+				Write.WritePaths(SavedFilePaths);
+
+				LoadMenu();
 			}
 			else
 			{
@@ -113,10 +58,19 @@ namespace みどく
 			}
 		}
 
-
-		public void LoadData()
+		public void ExportData()
 		{
+			Write.WriteWords(Words, $"{CurrentPath}data.txt");
+
+			LoadMenu();
+		}
+
+		public void LoadMenu()
+		{
+			Words.Clear();
+			SavedFilePaths.Clear();
 			Data.Processor.Read.ReadPaths(SavedFilePaths);
+
 			if (SavedFilePaths.Count == 0)
 			{
 				Console.WriteLine("Enter your first book log :'D");
@@ -125,6 +79,12 @@ namespace みどく
 			{
 				ListBooks();
 			}
+
+			SelectBook();
+		}
+
+		private void SelectBook()
+		{
 			string book = Console.ReadLine();
 			if (book == "del")
 			{
@@ -132,9 +92,8 @@ namespace みどく
 			}
 			else if (SavedFilePaths.Contains(book))
 			{
-				string bookPath = SavedFilePaths.Find(path => path == book) + "data.txt";
-				Data.Processor.Read.ReadWords(Words, $"{bookPath}");
-				this.FilePath = book;
+				this.CurrentPath = book;
+				Read.LoadWords(Words, $"{book}data.txt");
 				Console.WriteLine($"\nきどく - {book}");
 			}
 			else
@@ -143,31 +102,27 @@ namespace みどく
 				string input = Console.ReadLine();
 				if (input.ToUpper() == "Y")
 				{
-					CreateBookPath(book);
-					Data.Processor.Write.WritePaths(SavedFilePaths);
+					SavedFilePaths.Add(book);
+					Write.WritePaths(SavedFilePaths);
+					Write.WriteNewDataPath($"{book}data.txt");
+
 					Console.WriteLine($"New log created for {book}!");
-					this.FilePath = book;
-					Data.Processor.Write.WriteNewPath(FilePath);
-					Console.WriteLine($"\nきどく - {book}");
+
+					LoadMenu();
 				}
 				else if (input.ToUpper() == "N")
 				{
 					Console.WriteLine("Returning to menu....\n");
-					SavedFilePaths.Clear();
-					LoadData();
+
+					LoadMenu();
 				}
 				else
 				{
 					Console.WriteLine("Invalid input...returning to menu\n");
-					SavedFilePaths.Clear();
-					LoadData();
+
+					LoadMenu();
 				}
 			}
-		}
-
-		public void CreateBookPath(string path)
-		{
-			SavedFilePaths.Add(path);
 		}
 
 		private void ListBooks()
