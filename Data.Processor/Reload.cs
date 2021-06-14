@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace みどく
+namespace みどく.Data.Processor
 {
-	public class Collections
+	class Reload
 	{
-
-		public Collections(string name)
-		{
-		}
 	}
 }

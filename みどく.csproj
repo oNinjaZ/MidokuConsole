@@ -6,8 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Data\SavedBooks.cs" />
+    <Compile Remove="Data.Processor\SavedBooks.cs" />
     <Compile Remove="Dictionary.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Modes\View\" />
   </ItemGroup>
 
 </Project>

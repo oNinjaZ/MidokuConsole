@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace みどく
 {
-	public class WordList
+	public class Collection
 	{
 		public int WordCount
 		{
@@ -17,7 +17,7 @@ namespace みどく
 		}
 		public List<Word> Words { get; }
 
-		public WordList()
+		public Collection()
 		{
 			Words = new();
 		}

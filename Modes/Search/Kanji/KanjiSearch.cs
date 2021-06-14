@@ -4,20 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace みどく
+namespace みどく.Modes.Search.Kanji
 {
-	public static class KanjiSearch
+	public class KanjiSearch
 	{
-		public static void SearchList(WordList list, string kanji)
+		public static void SearchList(List<Word> words, string kanji)
 		{
-			List<Word> wordsContainingKanji = new();
-			foreach (var word in list.Words)
-			{
-				if (word.WordEntry.Contains(kanji))
-				{
-					wordsContainingKanji.Add(word);
-				}
-			}
+			List<Word> wordsContainingKanji = words.FindAll(word => word.WordEntry.Contains(kanji));
+
 			PrintList(wordsContainingKanji, kanji);
 		}
 

@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using みどく.Data;
+using みどく.Modes.Search.Vocab;
+using みどく.Modes.Search.Kanji;
 
 namespace みどく
 {
 	public class User
 	{
-		public WordList Words { get; set; }
+		public Collection Words { get; set; }
 		public List<string> SavedFilePaths { get; set; }
 		public string FilePath { get; set; }
 
@@ -17,43 +19,9 @@ namespace みどく
 			SavedFilePaths = new();
 		}
 
-		public void SearchWord(string searchedWord)
+		public void Search(string searchedWord)
 		{
-			if (Words.Words.Any(word => word.WordEntry == searchedWord))
-			{
-				FetchWord(searchedWord);
-			}
-			else
-			{
-				//Console.WriteLine($"\n{searchedWord} not found...\nAdd to word list? (y/n)");
-				//string answer = Console.ReadLine();
-				//switch (answer.ToUpper())
-				//{
-				//	case "Y":
-				//		AddWord(searchedWord);
-				//		break;
-				//	case "N":
-				//		Console.WriteLine("");
-				//		break;
-				//	default:
-				//		break;
-				//}
-				AddWord(searchedWord);
-			}
-		}
-		private void FetchWord(string searchedWord)
-		{
-			var word = Words.Words.Find(word => word.WordEntry == searchedWord);
-			word.TimesSeen++;
-			PrintWordInfo(word);
-			word.LastSeenDate = DateTime.Now;
-		}
-
-
-		private void AddWord(string newWord)
-		{
-			Words.Words.Add(new Word(newWord));
-			Console.WriteLine($"\n[{newWord}] added");
+			SearchWord.Find(Words.Words, searchedWord);
 		}
 
 		public void delWord()
@@ -100,13 +68,6 @@ namespace みどく
 			return Console.ReadLine().Split(" ").ToList();
 		}
 
-		private static void PrintWordInfo(Word word)
-		{
-			Console.WriteLine($"\nFirst seen: {word.FirstSeen}\n" +
-				$"Last seen: {word.LastSeen}\n" +
-				$"Frequency: {word.TimesSeen}x");
-		}
-
 
 
 		public void PrintCards()
@@ -120,15 +81,15 @@ namespace みどく
 
 		public void SearchKanji(string kanji)
 		{
-			KanjiSearch.SearchList(Words, kanji);
+			KanjiSearch.SearchList(Words.Words, kanji);
 		}
 
 
 
 		public void ExportData()
 		{
-			DataProcessor.WritePaths(SavedFilePaths);
-			DataProcessor.Write(Words, FilePath);
+			Data.Processor.Write.WritePaths(SavedFilePaths);
+			Data.Processor.Write.WriteWords(Words, FilePath);
 			Words = new();
 			SavedFilePaths.Clear();
 			LoadData();
@@ -141,7 +102,7 @@ namespace みどく
 			if (SavedFilePaths.Any(name => name == input))
 			{
 				SavedFilePaths.Remove(input);
-				DataProcessor.WritePaths(SavedFilePaths);
+				Data.Processor.Write.WritePaths(SavedFilePaths);
 				Words = new();
 				SavedFilePaths.Clear();
 				LoadData();
@@ -155,7 +116,7 @@ namespace みどく
 
 		public void LoadData()
 		{
-			DataProcessor.ReadPaths(SavedFilePaths);
+			Data.Processor.Read.ReadPaths(SavedFilePaths);
 			if (SavedFilePaths.Count == 0)
 			{
 				Console.WriteLine("Enter your first book log :'D");
@@ -172,7 +133,7 @@ namespace みどく
 			else if (SavedFilePaths.Contains(book))
 			{
 				string bookPath = SavedFilePaths.Find(path => path == book) + "data.txt";
-				DataProcessor.Read(Words, $"{bookPath}");
+				Data.Processor.Read.ReadWords(Words, $"{bookPath}");
 				this.FilePath = book;
 				Console.WriteLine($"\nきどく - {book}");
 			}
@@ -183,10 +144,10 @@ namespace みどく
 				if (input.ToUpper() == "Y")
 				{
 					CreateBookPath(book);
-					DataProcessor.WritePaths(SavedFilePaths);
+					Data.Processor.Write.WritePaths(SavedFilePaths);
 					Console.WriteLine($"New log created for {book}!");
 					this.FilePath = book;
-					DataProcessor.WriteNewPath(FilePath);
+					Data.Processor.Write.WriteNewPath(FilePath);
 					Console.WriteLine($"\nきどく - {book}");
 				}
 				else if (input.ToUpper() == "N")

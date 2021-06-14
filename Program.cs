@@ -44,7 +44,7 @@ namespace みどく
 					}
 					else
 					{
-						ninjaz.SearchWord(input);
+						ninjaz.Search(input);
 					}
 				}
 				while (kanjiMode)
