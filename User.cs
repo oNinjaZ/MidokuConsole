@@ -22,7 +22,10 @@ namespace みどく
 
 		public void Search(string searchedWord)
 		{
-			WordSearch.Find(Words, searchedWord);
+			if (!string.IsNullOrWhiteSpace(searchedWord))
+			{
+				WordSearch.Find(Words, searchedWord);
+			}
 		}
 
 		public void SearchKanji(string kanji)
@@ -47,7 +50,7 @@ namespace みどく
 			Console.WriteLine("enter book log to delete");
 			string input = Console.ReadLine();
 			if (SavedFilePaths.Remove(input))
-			{	
+			{
 				Write.WritePaths(SavedFilePaths);
 
 				LoadMenu();

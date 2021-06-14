@@ -31,6 +31,12 @@ namespace みどく.Modes.Search.Vocab
 
 		private static void AddWordToList(List<Word> words, string newWord)
 		{
+			//Console.WriteLine("Enter note (Optional)... or press Enter to continue");
+			//string note = Console.ReadLine();
+			//if (!string.IsNullOrEmpty(note))
+			//{
+
+			//}
 			words.Add(new Word(newWord));
 			Console.WriteLine($"\n[{newWord}] added");
 		}
