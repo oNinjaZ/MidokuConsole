@@ -11,7 +11,7 @@ namespace みどく.List.Display
 			Console.WriteLine("\n======================================================\n");
 			foreach (var item in words)
 			{
-				Console.WriteLine($"{item.WordEntry} (Seen {item.LastSeen}) {item.TimesSeen}x");
+				Console.WriteLine($"{item.WordEntry}  ({item.LastSeen})  {item.TimesSeen}x");
 			}
 			Console.WriteLine($"\n=======  Count: {words.Count}  |  By {ListView.currentSetting}  ========\n\n");
 		}
