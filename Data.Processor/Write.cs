@@ -33,7 +33,7 @@ namespace みどく.Data.Processor
 			{
 				var dateToStr = item.LastSeenDate.ToBinary().ToString();
 				var firstSeenDate = item.FirstSeenDate.ToBinary().ToString();
-				sw.WriteLine($"{item.WordEntry},{item.TimesSeen},{dateToStr},{firstSeenDate}");
+				sw.WriteLine($"{item.WordEntry},{item.TimesSeen},{dateToStr},{firstSeenDate},{item.Note}");
 			}
 			sw.Close();
 		}

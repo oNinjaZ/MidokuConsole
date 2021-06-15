@@ -10,6 +10,7 @@ namespace みどく
 	public class Word
 	{
 		public string WordEntry { get; set; }
+		public string Note { get; set; }
 		public int TimesSeen { get; set; }
 		public DateTime LastSeenDate { get; set; }
 		public DateTime FirstSeenDate { get; set; }
@@ -33,8 +34,9 @@ namespace みどく
 		public Word()
 		{
 		}
-		public Word(string word)
+		public Word(string word, string note)
 		{
+			Note = note;
 			this.WordEntry = word;
 			this.TimesSeen = 1;
 			LastSeenDate = DateTime.Now;

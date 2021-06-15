@@ -37,7 +37,7 @@ namespace みどく.Data.Processor
 				data = s.Split(",").ToArray();
 				DateTime date = DateTime.FromBinary(long.Parse(data[2]));
 				DateTime FirstSeenDate = DateTime.FromBinary(long.Parse(data[3]));
-				words.Add(new Word { WordEntry = data[0], TimesSeen = int.Parse(data[1]), LastSeenDate = date, FirstSeenDate = FirstSeenDate });
+				words.Add(new Word { WordEntry = data[0], Note = data[4], TimesSeen = int.Parse(data[1]), LastSeenDate = date, FirstSeenDate = FirstSeenDate });
 			}
 			sr.Close();
 		}

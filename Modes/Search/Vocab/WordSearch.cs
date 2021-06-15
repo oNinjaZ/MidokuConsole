@@ -23,7 +23,7 @@ namespace みどく.Modes.Search.Vocab
 		}
 
 		private static void UpdateOnSeen(Word word)
-		{	
+		{
 			word.TimesSeen++;
 			PrintWordInfo(word);
 			word.LastSeenDate = DateTime.Now;
@@ -31,13 +31,16 @@ namespace みどく.Modes.Search.Vocab
 
 		private static void AddWordToList(List<Word> words, string newWord)
 		{
-			//Console.WriteLine("Enter note (Optional)... or press Enter to continue");
-			//string note = Console.ReadLine();
-			//if (!string.IsNullOrEmpty(note))
-			//{
-
-			//}
-			words.Add(new Word(newWord));
+			Console.WriteLine("Enter note (Optional)... or press Enter to continue");
+			string note = Console.ReadLine();
+			if (string.IsNullOrWhiteSpace(note))
+			{
+				words.Add(new Word(newWord, ""));
+			}
+			else
+			{
+				words.Add(new Word(newWord, note));
+			}
 			Console.WriteLine($"\n[{newWord}] added");
 		}
 
