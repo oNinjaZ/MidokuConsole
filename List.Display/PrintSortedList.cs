@@ -8,12 +8,12 @@ namespace みどく.List.Display
 	{
 		public static void ListItems(List<Word> words)
 		{
-			Console.WriteLine("\n======================================================\n");
+			Console.WriteLine("\n===================================\n");
 			foreach (var word in words)
 			{
-				Console.WriteLine($"{word.WordEntry}  ({word.LastSeen})  {word.TimesSeen}x  {(!string.IsNullOrWhiteSpace(word.Note) ? $"-  {word.Note}" : "")}");
+				Console.WriteLine($"{word.WordEntry}  [{word.TimesSeen}x]  ({word.LastSeen})    {(!string.IsNullOrWhiteSpace(word.Note) ? $"- {word.Note}" : "")}");
 			}
-			Console.WriteLine($"\n=======  Count: {words.Count}  |  By {ListView.currentSetting}  ========\n\n");
+			Console.WriteLine($"\n=======  By {ListView.currentSetting} ({words.Count})  ========\n\n");
 		}
 	}
 }
