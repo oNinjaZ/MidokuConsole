@@ -43,7 +43,7 @@ namespace みどく
 					}
 					else if (input == "menu")
 					{
-						Console.WriteLine("Saving....");
+						Console.WriteLine("\nSaving....");
 						ninjaz.ExportData();
 					}
 					else
@@ -67,7 +67,7 @@ namespace みどく
 					}
 					else if (input == "menu")
 					{
-						Console.WriteLine("Saving....");
+						Console.WriteLine("\nSaving....");
 						ninjaz.ExportData();
 					}
 					else if (input == "list")
