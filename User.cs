@@ -5,6 +5,7 @@ using みどく.Modes.Search.Vocab;
 using みどく.Modes.Search.Kanji;
 using みどく.Editor;
 using みどく.Data.Processor;
+using System.IO;
 
 namespace みどく
 {
@@ -51,6 +52,7 @@ namespace みどく
 			string input = Console.ReadLine();
 			if (SavedFilePaths.Remove(input))
 			{
+				File.Delete($"{input}data.txt");
 				Write.WritePaths(SavedFilePaths);
 
 				LoadMenu();
