@@ -11,9 +11,9 @@ namespace みどく.Modes.Search.Vocab
 
 		public static void Find(List<Word> words, string searchedWord)
 		{
-			if (words.Any(word => word.WordEntry == searchedWord))
+			var word = words.Find(word => word.WordEntry == searchedWord);
+			if (word != null)
 			{
-				var word = words.Find(word => word.WordEntry == searchedWord); //CHECK, see if can refactor
 				UpdateOnSeen(word);
 			}
 			else
